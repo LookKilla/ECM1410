@@ -19,3 +19,27 @@ public class Main {
         System.out.println("New Rider ID: " + newRiderID);
     }
 }
+
+
+// For testing the Team.java
+public class Main {
+    public static void main(String[] args) {
+        // Example usage of the Teams class
+        Team teams = new Team();
+
+        // Get user input or use predefined values
+        String teamName = "TeamA"; // Replace with actual team name
+        String teamDescription = "A great cycling team"; // Replace with actual team description
+
+        try {
+            // Create a new team using the Teams class
+            int newTeamID = teams.createTeam(teamName, teamDescription);
+
+            // Print the newly created team ID
+            System.out.println("New Team ID: " + newTeamID);
+        } catch (Exception e) {
+            // Handle exceptions if necessary
+            e.printStackTrace();
+        }
+    }
+}
