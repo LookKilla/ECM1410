@@ -1,3 +1,9 @@
-public class riders {
+public class rider {
+  private int teamID;
+  private string name;
+  private int yearOfBirth;
+  private int riderID;
 
+  
+  
 }
