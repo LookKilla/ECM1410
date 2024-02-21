@@ -1,4 +1,4 @@
-package cycling;
+package package;
 
 /**
  * Thrown when attempting to assign an entity name null, empty or having more than
