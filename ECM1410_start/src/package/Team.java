@@ -104,4 +104,4 @@ public class Team {
     }
 }
 
-// Should work (I can't be asked to test at the moment).
+// I've tested it and it 'seems' to be working.
