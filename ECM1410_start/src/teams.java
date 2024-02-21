@@ -10,5 +10,11 @@ public class teams{
 
     return teamID;
   }
+
+  public int[] getTeamRiders(int teamID){
+    return riders;
+  }
+
+  
   
 }
