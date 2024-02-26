@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Arrays;
 
-public class Team {
+public class Team2 {
     private Map<String, String> teams; // Map to store team names and descriptions
     private int[] teamIDs; // Array to store team IDs
     private int lastUsedTeamID; // Variable to keep track of the last used team ID
 
-    public Team() {
+    public Team2() {
         teamIDs = new int[100];
         teams = new HashMap<>();
         lastUsedTeamID = getLastUsedTeamID(); // Initialize lastUsedTeamID from your data source
