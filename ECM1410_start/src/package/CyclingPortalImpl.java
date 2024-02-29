@@ -7,9 +7,11 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     //make getter and setters
 
+    public int[] teamIDs;
     public Team[] Teams;
+    public int lastUsedTeamID;
+    
     public int NumberOfRiders;
-    public int[] TeamIDs;
     public int[] RiderIDs;
     public Riders.Rider[] Riders;
 
@@ -18,7 +20,8 @@ public class CyclingPortalImpl implements CyclingPortal {
         RiderIDs = new int[100];
         Riders = new Riders.Rider[100];
 
-        Teams = new Team[100];
+        Teams = new Team[1];
+        lastUsedTeamID = 1;
 
         NumberOfRiders = RiderIDs.length;
     }
@@ -130,13 +133,52 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     @Override
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
-        return 0;
+        rTeam createdTeam = new Team();
+        int TeamID = createdTeam.createTeam(name, description);
+
+        Teams = Arrays.copyOf(Teams, Teams.length + 1);
+        Teams[Teams.length - 1] = createdTeam;
+        return TeamID;
     }
 
     @Override
     public void removeTeam(int teamId) throws IDNotRecognisedException {
+        if (!containsTeam(teamId)) {
+            throw new IDNotRecognisedException("ID not recognized: " + teamId);
+        }
 
+        // Find the index of the team ID in the array
+        int index = indexOfTeam(teamId);
 
+        // Remove the team ID from the teamIDs array
+        int[] newTeamIDs = new int[teamIDs.length - 1];
+        System.arraycopy(teamIDs, 0, newTeamIDs, 0, index);
+        System.arraycopy(teamIDs, index + 1, newTeamIDs, index, teamIDs.length - index - 1);
+        teamIDs = newTeamIDs;
+
+        // Remove the corresponding Team from the teams array
+        Team[] newTeams = new Team[Teams.length - 1];
+        System.arraycopy(Teams, 0, newTeams, 0, index);
+        System.arraycopy(Teams, index + 1, newTeams, index, Teams.length - index - 1);
+        Teams = newTeams;
+    }
+
+    private boolean containsTeam(int teamId) {
+        for (int id : teamIDs) {
+            if (id == teamId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int indexOfTeam(int teamId) {
+        for (int i = 0; i < teamIDs.length; i++) {
+            if (teamIDs[i] == teamId) {
+                return i;
+            }
+        }
+        return -1; // Team ID not found
     }
 
     @Override
