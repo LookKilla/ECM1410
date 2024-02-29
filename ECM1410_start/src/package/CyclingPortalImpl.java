@@ -9,8 +9,8 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     //make getter and setters
 
-    public int[] teamIDs;
-    public Team[] Teams;
+    // public int[] teamIDs;
+    public ArrayList<Team> Teams;
     public int lastUsedTeamID;
     
     public int NumberOfRiders;
@@ -148,24 +148,22 @@ public class CyclingPortalImpl implements CyclingPortal {
 
         // Unfinished
         
-        if (!containsTeam(teamId)) {
+        int index = -1;
+
+        for (int i = 0; i < Teams.size(); i++) {
+            Team team = Teams.get(i);
+            if (team.getTeamId() == teamId) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
             throw new IDNotRecognisedException("ID not recognized: " + teamId);
         }
 
-        // Find the index of the team ID in the array
-        int index = indexOfTeam(teamId);
-
-        // Remove the team ID from the teamIDs array
-        int[] newTeamIDs = new int[teamIDs.length - 1];
-        System.arraycopy(teamIDs, 0, newTeamIDs, 0, index);
-        System.arraycopy(teamIDs, index + 1, newTeamIDs, index, teamIDs.length - index - 1);
-        teamIDs = newTeamIDs;
-
-        // Remove the corresponding Team from the teams array
-        Team[] newTeams = new Team[Teams.length - 1];
-        System.arraycopy(Teams, 0, newTeams, 0, index);
-        System.arraycopy(Teams, index + 1, newTeams, index, Teams.length - index - 1);
-        Teams = newTeams;
+        // Remove the team at the found index
+        Teams.remove(index);
     }
 
     private boolean containsTeam(int teamId) {
