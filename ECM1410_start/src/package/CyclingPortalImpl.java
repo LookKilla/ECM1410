@@ -143,9 +143,6 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     @Override
     public void removeTeam(int teamId) throws IDNotRecognisedException {
-
-        // Unfinished
-        
         if (!containsTeam(teamId)) {
             throw new IDNotRecognisedException("ID not recognized: " + teamId);
         }
@@ -191,7 +188,19 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     @Override
     public int[] getTeamRiders(int teamId) throws IDNotRecognisedException {
+        Team temp = getTeamById(teamId);
+        int[] teamRiders = temp.getRiders();
         return new int[0];
+    }
+
+    public Team getTeamById(int teamId) throws IDNotRecognisedException {
+        int index = indexOfTeam(teamId);
+
+        if (index == -1) {
+            throw new IDNotRecognisedException("ID not recognized: " + teamId);
+        }
+
+        return Teams[index];
     }
 
     @Override
