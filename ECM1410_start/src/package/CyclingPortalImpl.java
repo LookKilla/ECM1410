@@ -186,7 +186,7 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     @Override
     public int[] getTeams() {
-        return new int[0];
+        return teamIDs;
     }
 
     @Override
