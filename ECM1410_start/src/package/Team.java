@@ -24,6 +24,10 @@ public class Team {
 
     }
 
+    public int[] getRiders(){
+        return this.RiderIDs;
+    }
+
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
         int teamID = generateTeamID();
 
