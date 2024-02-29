@@ -2,7 +2,7 @@ package cycling;
 
 import java.util.Arrays;
 
-public class NewTeam {
+public class Team {
 
     private Team[] Teams;
     private int[] teamIDs; // Array to store team IDs
@@ -16,24 +16,24 @@ public class NewTeam {
 
 
 
-    public NewTeam(){
+    public Team(){
 
         CyclingPortalImpl Portal = new CyclingPortalImpl();
-        teamIDs = Portal.TeamIDs;
+        teamIDs = Portal.teamIDs;
         lastUsedTeamID = Portal.lastUsedTeamID;
 
     }
 
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
-        int[] RiderIDs = new int[20];
-        this.RiderIDs = RiderIDs;
+        int teamID = generateTeamID();
 
-        this.Name =name;
+        this.RiderIDs = new int[20];
+        this.Name = name;
         this.Description = description;
+        this.TeamId = teamID;
 
-        this.TeamId = generateTeamID(); // make generateID
         lastUsedTeamID++;
-        return 0;
+        return teamID;
     }
 
     private static int generateTeamID() {
@@ -51,8 +51,7 @@ public class NewTeam {
 
         return lastUsedTeamID;
     }
-
-
-
-
+    
+    
+    
 }
