@@ -19,10 +19,20 @@ public class Team {
         return RiderIDs;
     }
 
-    public int getTeamId(){
-        return TeamId;
-    }
 
+
+    //getters
+    public String getName(){return Name;}
+    public String getDescription(){return Description;}
+    public int getTeamId(){return TeamId;}
+    public int[] getRiderIDs(){return RiderIDs;}
+
+    //setters
+    public void setName(String Name){this.Name = Name;}
+    public void setDescription(String Description){this.Description = Description;}
+    public void setTeamId(int TeamId){this.TeamId = TeamId;}
+
+    
     public Team(){
 
         CyclingPortalImpl Portal = new CyclingPortalImpl();
