@@ -10,9 +10,16 @@ public class Riders {
     private int RiderId;
 
 
-    public int getRiderId(){
-        return RiderId;
-    }
+    //getters
+    public int getYearOfBirth(){return yearOfBirth;}
+    public String getName(){return Name;}
+    public int getRiderId(){return RiderId;}
+
+    //setters
+    public void setName(String Name){this.Name = Name;}
+    public void setRiderId(int RiderId){this.RiderId =RiderId;}
+    public void setYearOfBirth(int yearOfBirth){this.yearOfBirth = yearOfBirth;}
+
 
     public Riders(){
 
