@@ -21,7 +21,7 @@ public class Riders {
 
     }
 
-    public int createTeam(String name, int yearOfBirth) throws IllegalNameException, InvalidNameException {
+    public int createRider(String name, int yearOfBirth) throws IllegalNameException, InvalidNameException {
         int riderID = generateRiderID();
 
 
