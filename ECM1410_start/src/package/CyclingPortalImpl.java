@@ -4,22 +4,23 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class CyclingPortalImpl implements CyclingPortal{
-    
+
     public ArrayList<Team> Teams;
     public int lastUsedTeamID;
 
     public int[] riderIDs;
-    //public Riders.Rider[] riders;
+    public ArrayList<Riders> Riders;
     public int numberOfRiders = 0;
+    public int lastUsedRiderID;
 
 
     public CyclingPortalImpl(){
         riderIDs = new int[100];
         Teams = new ArrayList<Team>();
+        Riders = new ArrayList<>();
         lastUsedTeamID = 1;
     }
 
@@ -170,7 +171,7 @@ public class CyclingPortalImpl implements CyclingPortal{
             throw new IDNotRecognisedException("ID not recognized: " + teamId);
         }
 
-        return Team.getRiders();
+        return team.getRiders();
     }
 
     private Team findTeamById(int teamId) {
@@ -184,12 +185,31 @@ public class CyclingPortalImpl implements CyclingPortal{
 
     @Override
     public int createRider(int teamID, String name, int yearOfBirth) throws IDNotRecognisedException, IllegalArgumentException {
-        return Riders.createNewRider(teamID, name, yearOfBirth);
+        Riders createdRider = new Riders();
+        int RiderID = createdRider.createRider(name, yearOfBirth);
+
+        Riders.add(createdRider);
+        return RiderID;
     }
 
     @Override
     public void removeRider(int riderId) throws IDNotRecognisedException {
+        int index = -1;
 
+        for (int i = 0; i < Riders.size(); i++) {
+            Riders rider = Riders.get(i);
+            if (rider.getRiderId() == riderId) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            throw new IDNotRecognisedException("ID not recognized: " + riderId);
+        }
+
+        // Remove the rider at the found index
+        Riders.remove(index);
     }
 
     @Override
