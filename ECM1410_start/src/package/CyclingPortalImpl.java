@@ -135,7 +135,7 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     @Override
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
-        rTeam createdTeam = new Team();
+        Team createdTeam = new Team();
         int TeamID = createdTeam.createTeam(name, description);
 
         Teams = Arrays.copyOf(Teams, Teams.length + 1);
@@ -173,19 +173,22 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     @Override
     public int[] getTeamRiders(int teamId) throws IDNotRecognisedException {
-        Team temp = getTeamById(teamId);
-        int[] teamRiders = temp.getRiders();
-        return teamsRiders;
-    }
+        Team team = findTeamById(teamId);
 
-    public Team getTeamById(int teamId) throws IDNotRecognisedException {
-        int index = indexOfTeam(teamId);
-
-        if (index == -1) {
+        if (team == null) {
             throw new IDNotRecognisedException("ID not recognized: " + teamId);
         }
 
-        return Teams[index];
+        return Team.getRiders();
+    }
+
+    private Team findTeamById(int teamId) {
+        for (Team team : Teams) {
+            if (team.getTeamId() == teamId) {
+                return team;
+            }
+        }
+        return null; // Team ID not found
     }
 
     @Override
