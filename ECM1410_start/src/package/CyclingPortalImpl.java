@@ -166,24 +166,6 @@ public class CyclingPortalImpl implements CyclingPortal {
         Teams.remove(index);
     }
 
-    private boolean containsTeam(int teamId) {
-        for (int id : teamIDs) {
-            if (id == teamId) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private int indexOfTeam(int teamId) {
-        for (int i = 0; i < teamIDs.length; i++) {
-            if (teamIDs[i] == teamId) {
-                return i;
-            }
-        }
-        return -1; // Team ID not found
-    }
-
     @Override
     public int[] getTeams() {
         return teamIDs;
