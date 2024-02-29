@@ -5,33 +5,35 @@ import java.util.Arrays;
 public class Team {
 
     private Team[] Teams;
-    private int[] teamIDs; // Array to store team IDs
+
     private static int lastUsedTeamID; // Variable to keep track of the last used team ID
     
     private String Name;
     private String Description;
 
     private int TeamId;
-    private int[] RiderIDs;
+    private static int[] RiderIDs;
 
 
+    public static int[] getRiders(){
+        return RiderIDs;
+    }
+
+    public int getTeamId(){
+        return TeamId;
+    }
 
     public Team(){
 
         CyclingPortalImpl Portal = new CyclingPortalImpl();
-        teamIDs = Portal.teamIDs;
         lastUsedTeamID = Portal.lastUsedTeamID;
 
-    }
-
-    public int[] getRiders(){
-        return this.RiderIDs;
     }
 
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
         int teamID = generateTeamID();
 
-        this.RiderIDs = new int[20];
+        RiderIDs = new int[20];
         this.Name = name;
         this.Description = description;
         this.TeamId = teamID;
@@ -55,7 +57,7 @@ public class Team {
 
         return lastUsedTeamID;
     }
-    
-    
-    
+
+
+
 }
