@@ -193,7 +193,7 @@ public class CyclingPortalImpl implements CyclingPortal {
     public int[] getTeamRiders(int teamId) throws IDNotRecognisedException {
         Team temp = getTeamById(teamId);
         int[] teamRiders = temp.getRiders();
-        return new int[0];
+        return teamsRiders;
     }
 
     public Team getTeamById(int teamId) throws IDNotRecognisedException {
