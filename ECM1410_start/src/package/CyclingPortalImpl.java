@@ -3,29 +3,24 @@ package cycling;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class CyclingPortalImpl implements CyclingPortal {
 
-
-    //make getter and setters
-
-    // public int[] teamIDs;
+public class CyclingPortalImpl implements CyclingPortal{
+    
     public ArrayList<Team> Teams;
     public int lastUsedTeamID;
-    
-    public int NumberOfRiders;
-    public int[] RiderIDs;
-    public Riders.Rider[] Riders;
+
+    public int[] riderIDs;
+    //public Riders.Rider[] riders;
+    public int numberOfRiders = 0;
+
 
     public CyclingPortalImpl(){
-        TeamIDs = new int[100];
-        RiderIDs = new int[100];
-        Riders = new Riders.Rider[100];
-
-        Teams = new Team[1];
+        riderIDs = new int[100];
+        Teams = new ArrayList<Team>();
         lastUsedTeamID = 1;
-
-        NumberOfRiders = RiderIDs.length;
     }
 
     @Override
@@ -138,16 +133,12 @@ public class CyclingPortalImpl implements CyclingPortal {
         Team createdTeam = new Team();
         int TeamID = createdTeam.createTeam(name, description);
 
-        Teams = Arrays.copyOf(Teams, Teams.length + 1);
-        Teams[Teams.length - 1] = createdTeam;
+        Teams.add(createdTeam);
         return TeamID;
     }
 
     @Override
     public void removeTeam(int teamId) throws IDNotRecognisedException {
-
-        // Unfinished
-        
         int index = -1;
 
         for (int i = 0; i < Teams.size(); i++) {
@@ -168,7 +159,7 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     @Override
     public int[] getTeams() {
-        return teamIDs;
+        return new int[0];
     }
 
     @Override
@@ -193,7 +184,7 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     @Override
     public int createRider(int teamID, String name, int yearOfBirth) throws IDNotRecognisedException, IllegalArgumentException {
-        return 0;
+        return Riders.createNewRider(teamID, name, yearOfBirth);
     }
 
     @Override
