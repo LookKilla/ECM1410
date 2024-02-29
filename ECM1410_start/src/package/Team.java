@@ -48,7 +48,7 @@ public class Team {
         this.Description = description;
         this.TeamId = teamID;
 
-        lastUsedTeamID++;
+        ++lastUsedTeamID;
         return teamID;
     }
 
