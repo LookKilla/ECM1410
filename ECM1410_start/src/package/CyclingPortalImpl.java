@@ -1,7 +1,9 @@
 package cycling;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
 public class CyclingPortalImpl implements CyclingPortal {
 
 
