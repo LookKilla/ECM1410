@@ -143,6 +143,9 @@ public class CyclingPortalImpl implements CyclingPortal {
 
     @Override
     public void removeTeam(int teamId) throws IDNotRecognisedException {
+
+        // Unfinished
+        
         if (!containsTeam(teamId)) {
             throw new IDNotRecognisedException("ID not recognized: " + teamId);
         }
