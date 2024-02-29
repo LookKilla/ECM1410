@@ -2,7 +2,7 @@ package cycling;
 
 public class Riders {
 
-    private int lastUsedRiderID =1; // Variable to keep track of the last used team ID
+    private int lastUsedRiderID; // Variable to keep track of the last used team ID
 
     private String Name;
     private int yearOfBirth;
@@ -10,24 +10,18 @@ public class Riders {
     private int RiderId;
 
 
-    //getters
-    public int getYearOfBirth(){return yearOfBirth;}
-    public String getName(){return Name;}
-    public int getRiderId(){return RiderId;}
-
-    //setters
-    public void setName(String Name){this.Name = Name;}
-    public void setRiderId(int RiderId){this.RiderId =RiderId;}
-    public void setYearOfBirth(int yearOfBirth){this.yearOfBirth = yearOfBirth;}
-
+    public int getRiderId(){
+        return RiderId;
+    }
 
     public Riders(){
 
         CyclingPortalImpl Portal = new CyclingPortalImpl();
+        lastUsedRiderID = Portal.lastUsedRiderID;
 
     }
 
-    public int createRider(String name, int yearOfBirth) throws IllegalNameException, InvalidNameException {
+    public int createRider(String name, int yearOfBirth){
         int riderID = generateRiderID();
 
 
