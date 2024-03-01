@@ -12,12 +12,7 @@ public class Team {
     private String Description;
 
     private int TeamId;
-    private static int[] RiderIDs;
-
-
-    public static int[] getRiders(){
-        return RiderIDs;
-    }
+    private ArrayList<Integer> RiderIDs;
 
 
 
@@ -25,12 +20,13 @@ public class Team {
     public String getName(){return Name;}
     public String getDescription(){return Description;}
     public int getTeamId(){return TeamId;}
-    public int[] getRiderIDs(){return RiderIDs;}
+    public ArrayList<Integer> getRiderIDs(){return RiderIDs;}
 
     //setters
     public void setName(String Name){this.Name = Name;}
     public void setDescription(String Description){this.Description = Description;}
     public void setTeamId(int TeamId){this.TeamId = TeamId;}
+    public void addRider(int riderID){this.RiderIDs.add(riderID);}
 
     
     public Team(){
