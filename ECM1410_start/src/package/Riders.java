@@ -28,10 +28,10 @@ public class Riders {
 
     }
 
-    public int createRider(String name, int yearOfBirth){
+    public int createRider(int, teamID,String name, int yearOfBirth){
         int riderID = generateRiderID();
 
-
+        this.teamID = teamID;
         this.Name = name;
         this.yearOfBirth = yearOfBirth;
         this.RiderId = riderID;
