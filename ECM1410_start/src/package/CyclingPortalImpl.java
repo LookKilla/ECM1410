@@ -189,6 +189,13 @@ public class CyclingPortalImpl implements CyclingPortal{
         int RiderID = createdRider.createRider(name, yearOfBirth);
 
         Riders.add(createdRider);
+
+        Team team = findTeamById(teamID);
+
+        assert team != null;
+        team.addRider(RiderID);
+
+        
         return RiderID;
     }
 
