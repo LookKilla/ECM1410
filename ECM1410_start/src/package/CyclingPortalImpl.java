@@ -132,10 +132,35 @@ public class CyclingPortalImpl implements CyclingPortal{
     @Override
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
         Team createdTeam = new Team();
-        int TeamID = createdTeam.createTeam(name, description);
+
+        createdTeam.createTeam(name, description);
 
         Teams.add(createdTeam);
+
+        int TeamID = createdTeam.generateID();
+        createdTeam.setTeamId(TeamID);
+
+        if (name.contains(" ")){
+            throw new InvalidNameException();
+        }
+
+        if (ArrayCheck(name)){throw new IllegalNameException();}
+        
+
         return TeamID;
+    }
+
+     public boolean ArrayCheck(String name) {
+        boolean s = false;
+
+        for (int i = 0; i < Teams.size()-1; i++){
+            if (Teams.get(i).getName().equals(name)){
+                s = true;
+                break;
+            }
+        }
+
+        return s;
     }
 
     @Override
@@ -160,7 +185,15 @@ public class CyclingPortalImpl implements CyclingPortal{
 
     @Override
     public int[] getTeams() {
-        return new int[0];
+        public int[] getTeams() {
+
+        int[] IDs = new int[Teams.size()];
+
+        for(int i = 0; i< Teams.size(); i++){
+            IDs[i]=Teams.get(i).getTeamId();
+        }
+        return IDs;
+    }
     }
 
     @Override
