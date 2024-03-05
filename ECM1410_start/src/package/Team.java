@@ -48,9 +48,14 @@ public class Team {
         return teamID;
     }
 
-    private static int generateTeamID() {
-        // Increment the last used team ID to generate a new unique ID
-        return lastUsedTeamID + 1;
+    public int generateID(){
+
+        int id = this.Name.hashCode();
+        if (id < 0){
+            id = id * -1;
+        }
+
+        return id;
     }
 
     private int getLastUsedTeamID() {
@@ -64,6 +69,10 @@ public class Team {
         return lastUsedTeamID;
     }
 
+    @Override
+    public String toString() {
+        return "Team "+Name+": "+ Description+ ": "+TeamId;
+    }
 
 
 }
