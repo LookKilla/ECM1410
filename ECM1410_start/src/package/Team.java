@@ -32,8 +32,19 @@ public class Team {
     public Team(){
 
         CyclingPortalImpl Portal = new CyclingPortalImpl();
-        lastUsedTeamID = Portal.lastUsedTeamID;
 
+
+    }
+
+    public int[] getRiders(){
+        int n = this.RiderIDs.size();
+        int[] arrRiders = new int[n];
+
+        for (int i=0; i<n;i++){
+            arrRiders[i] = this.RiderIDs.get(i);
+        }
+
+        return arrRiders;
     }
 
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
