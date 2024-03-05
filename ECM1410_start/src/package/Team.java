@@ -28,13 +28,6 @@ public class Team {
     public void setTeamId(int TeamId){this.TeamId = TeamId;}
     public void addRider(int riderID){this.RiderIDs.add(riderID);}
 
-    
-    public Team(){
-
-        CyclingPortalImpl Portal = new CyclingPortalImpl();
-
-
-    }
 
     public int[] getRiders(){
         int n = this.RiderIDs.size();
