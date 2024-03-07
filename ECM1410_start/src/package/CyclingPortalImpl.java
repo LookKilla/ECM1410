@@ -511,8 +511,44 @@ public class CyclingPortalImpl implements CyclingPortal{
         Riders.remove(index);
     }
 
-    @Override
+     @Override
     public void registerRiderResultsInStage(int stageId, int riderId, LocalTime... checkpointTimes) throws IDNotRecognisedException, DuplicatedResultException, InvalidCheckpointTimesException, InvalidStageStateException {
+        int index = -1;
+        Riders rider = null;
+
+        for (int i = 0; i < Riders.size(); i++) {
+            rider = Riders.get(i);
+            if (rider.getRiderId() == riderId) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            throw new IDNotRecognisedException("ID not recognized: " + riderId);
+        }
+
+        int index2 = -1;
+        int id = 0;
+
+        // Incrementing through Race Objects
+        for (Race selectRace : Races) {
+            // Incrementing through Stage Objects
+            for (int j = 0; j < selectRace.getStages().size(); j++) {
+                Stage selectStage = selectRace.getStages().get(j);
+                if (selectStage.getStageID() == stageId){
+                    index2 = j;
+                    break;
+                }
+            }
+        }
+
+        if (index2 == -1) {
+            throw new IDNotRecognisedException("ID not recognized: " + stageId);
+        }
+
+        rider.addResult(stageId, checkpointTimes);
+
 
     }
 
