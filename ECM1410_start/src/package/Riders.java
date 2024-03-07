@@ -21,13 +21,6 @@ public class Riders {
     public void setYearOfBirth(int yearOfBirth){this.yearOfBirth = yearOfBirth;}
 
 
-    public Riders(){
-
-        CyclingPortalImpl Portal = new CyclingPortalImpl();
-        lastUsedRiderID = Portal.lastUsedRiderID;
-
-    }
-
     public int createRider(int, teamID,String name, int yearOfBirth){
         int riderID = generateRiderID();
 
