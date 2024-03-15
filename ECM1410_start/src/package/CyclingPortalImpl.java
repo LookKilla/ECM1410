@@ -548,6 +548,8 @@ public class CyclingPortalImpl implements CyclingPortal{
         }
 
         rider.addResult(stageId, checkpointTimes);
+        selectStage.getLeaderBoard().add(riderId);
+        selectStage.getRiderTimes().put(riderId, temp.plusMinutes(checkpointTimes[0].until(checkpointTimes[checkpointTimes.length-1], ChronoUnit.SECONDS)));
 
 
     }
