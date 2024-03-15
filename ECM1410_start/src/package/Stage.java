@@ -11,6 +11,9 @@ public class Stage implements java.io.Serializable{
     private int stageID;
     private StageType Type;
     private ArrayList<Checkpoint> Checkpoints;
+    private ArrayList<Integer> LeaderBoard;
+    private ArrayList<LocalTime> AdjustedTimes;
+    private HashMap<Integer, LocalTime> RiderTimes;
 
 
     public int createStage(String name, String description,
@@ -52,6 +55,13 @@ public class Stage implements java.io.Serializable{
         return id;
     }
 
+    //getters
+
+
+    public ArrayList<LocalTime> getAdjustedTimes() {return AdjustedTimes;}
+
+    public HashMap<Integer, LocalTime> getRiderTimes() {return RiderTimes;}
+
     public String getName(){
         return Name;
     };
@@ -78,5 +88,42 @@ public class Stage implements java.io.Serializable{
 
     public ArrayList<Checkpoint> getCheckpoints(){
         return Checkpoints;
+    }
+
+    public ArrayList<Integer> getLeaderBoard() {return LeaderBoard; }
+
+    public LocalDateTime getEndTime() {return endTime;}
+
+
+
+    //setters
+    public void setCheckpoints(ArrayList<Checkpoint> checkpoints) {
+        Checkpoints = checkpoints;
+    }
+
+    public void setDescription(String description) {
+        this.Description = description;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {this.endTime = endTime;}
+
+    public void setLeaderBoard(ArrayList<Integer> leaderBoard) {
+        this.LeaderBoard = leaderBoard;
+    }
+
+    public void setLength(double length) {
+        this.Length = length;
+    }
+
+    public void setName(String name) {
+        this.Name = name;
+    }
+
+    public void setStageID(int stageID) {
+        this.stageID = stageID;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 }
