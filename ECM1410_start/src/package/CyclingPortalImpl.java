@@ -559,7 +559,62 @@ public class CyclingPortalImpl implements CyclingPortal{
 
     @Override
     public LocalTime getRiderAdjustedElapsedTimeInStage(int stageId, int riderId) throws IDNotRecognisedException {
-        return null;
+        Riders rider;
+        LocalTime[] riderCheckpointTimes;
+        LocalTime temp = LocalTime.MIN;
+        boolean riderfound = false;
+        boolean stagefound = false;
+        LocalTime elpasedTime;
+        Stage selectStage = null;
+        int PositionOfRider = -1;
+
+
+        for (int i = 0; i < Riders.size() - 1; i++) {
+            if (riderId == Riders.get(i).getRiderId()) {   //find riderID
+                riderfound = true;
+                rider = Riders.get(i);
+                break;
+            }
+        }
+
+        //find the stage
+        for (Stage stage : Stages) {
+            if (stage.getStageID() == stageId) {
+                selectStage = stage;
+                break;
+            }
+        }
+
+        // find position of rider in the stage
+
+        for (int j = 0; j < selectStage.getLeaderBoard().size() - 1; j++) {
+            if (selectStage.getLeaderBoard().get(j) == riderId) {
+                PositionOfRider = j;
+                break;
+            }
+        }
+
+        //set real elapsed time
+        elpasedTime = selectStage.getRiderTimes().get(riderId);
+
+        //first adjusted time is the same as that riders real elapsed time
+        selectStage.getAdjustedTimes().add(selectStage.getRiderTimes().get(selectStage.getLeaderBoard().get(1)));
+
+
+
+        //populate adjusted time Arraylist in stage class with either adjusted time or real time
+        // depending on the time difference between riders
+        for (int pos = 1; pos < selectStage.getLeaderBoard().size() - 1; pos++) {
+            if (selectStage.getRiderTimes().get(selectStage.getLeaderBoard().get(pos - 1)).until(selectStage.getRiderTimes().get(selectStage.getLeaderBoard().get(pos)), ChronoUnit.SECONDS) < 1) {
+                selectStage.getAdjustedTimes().add(selectStage.getAdjustedTimes().get(pos - 1));
+            } else {
+                selectStage.getAdjustedTimes().add(selectStage.getRiderTimes().get(selectStage.getLeaderBoard().get(pos)));
+            }
+        }
+
+        //return Adjusted time of the rider
+        return selectStage.getAdjustedTimes().get(selectStage.getLeaderBoard().get(PositionOfRider));
+
     }
 
     @Override
