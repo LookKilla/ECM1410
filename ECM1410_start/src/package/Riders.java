@@ -1,13 +1,18 @@
 package cycling;
 
-public class Riders {
+import java.io.Serializable;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.concurrent.ScheduledExecutorService;
 
-    private int lastUsedRiderID; // Variable to keep track of the last used team ID
+public class Riders implements Serializable {
 
     private String Name;
     private int yearOfBirth;
-
     private int RiderId;
+    //private ArrayList<Results> Results;
+
+
 
 
     //getters
@@ -15,26 +20,48 @@ public class Riders {
     public String getName(){return Name;}
     public int getRiderId(){return RiderId;}
 
+
     //setters
     public void setName(String Name){this.Name = Name;}
     public void setRiderId(int RiderId){this.RiderId =RiderId;}
     public void setYearOfBirth(int yearOfBirth){this.yearOfBirth = yearOfBirth;}
 
 
-    public int createRider(int, teamID,String name, int yearOfBirth){
+    public Riders(){
+
+        //Results = new ArrayList<>();
+    }
+
+    public int createRider(String name, int yearOfBirth){
+        this.Name = name;
         int riderID = generateRiderID();
 
-        this.teamID = teamID;
-        this.Name = name;
         this.yearOfBirth = yearOfBirth;
         this.RiderId = riderID;
 
-        lastUsedRiderID++;
         return riderID;
     }
 
     private int generateRiderID() {
-        // Increment the last used team ID to generate a new unique ID
-        return lastUsedRiderID + 1;
+        int id = this.Name.hashCode();
+        if (id < 0){
+            id = id * -1;
+        }
+
+        return id;
     }
+
+
+    public void addResult(int Stageid, LocalTime... CheckpointTimes){
+        Results newResult = new Results();
+
+        newResult.registerResults(Stageid, CheckpointTimes);
+
+        //Results.add(newResult);
+    }
+
+
+    //public void removeResult(int id){
+        //this.Results.remove(id);
+
 }
