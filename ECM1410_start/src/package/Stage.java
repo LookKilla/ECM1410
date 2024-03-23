@@ -1,19 +1,29 @@
 package cycling;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
-public class Stage implements java.io.Serializable{
+public class Stage implements Serializable {
     private String Name;
     private String Description;
     private double Length;
     private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int stageID;
     private StageType Type;
     private ArrayList<Checkpoint> Checkpoints;
     private ArrayList<Integer> LeaderBoard;
     private ArrayList<LocalTime> AdjustedTimes;
     private HashMap<Integer, LocalTime> RiderTimes;
+    private ArrayList<Results> Results;
+
+
+
+
 
 
     public int createStage(String name, String description,
@@ -31,6 +41,7 @@ public class Stage implements java.io.Serializable{
 
         this.Checkpoints = new ArrayList<>();
 
+
         return id;
     }
 
@@ -45,6 +56,11 @@ public class Stage implements java.io.Serializable{
     }
 
 
+    public void addResults(int riderid, LocalTime... times){
+        Results result = new Results();
+        result.registerResults(riderid, times);
+        Results.add(result);
+    }
     private int generateID(String name){
         int id = name.hashCode();
 
@@ -55,9 +71,39 @@ public class Stage implements java.io.Serializable{
         return id;
     }
 
+    public void getSortedRiderIDsByElapsedTime() {
+        ArrayList<Integer> sortedRiderIDs = new ArrayList<>();
+
+        // Create a new ArrayList to store the rider IDs and their elapsed times
+        ArrayList<RiderTimeEntry> riderTimeEntries = new ArrayList<>();
+
+        // Iterate through the Results ArrayList and create RiderTimeEntry objects
+        for (Results result : Results) {
+            int riderID = result.getRiderID();
+            LocalTime elapsedTime = result.getElapsedTime();
+            riderTimeEntries.add(new RiderTimeEntry(riderID, elapsedTime));
+        }
+
+        // Sort the riderTimeEntries list based on the elapsed time
+        Collections.sort(riderTimeEntries);
+
+        // Extract the sorted rider IDs from the riderTimeEntries list
+        for (RiderTimeEntry entry : riderTimeEntries) {
+            sortedRiderIDs.add(entry.getRiderID());
+        }
+
+        this.LeaderBoard = sortedRiderIDs;
+    }
+
+
+
+    public void removeresults(int riderid){
+        Results.removeIf(result -> result.getRiderID() == riderid);
+    }
+
     //getters
 
-
+    public ArrayList<Results> getResults(){ return Results;}
     public ArrayList<LocalTime> getAdjustedTimes() {return AdjustedTimes;}
 
     public HashMap<Integer, LocalTime> getRiderTimes() {return RiderTimes;}
@@ -126,4 +172,27 @@ public class Stage implements java.io.Serializable{
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
+
+
+
+    // Inner class to store rider ID and elapsed time for sorting
+    private static class RiderTimeEntry implements Comparable<RiderTimeEntry> {
+        private int riderID;
+        private LocalTime elapsedTime;
+
+        public RiderTimeEntry(int riderID, LocalTime elapsedTime) {
+            this.riderID = riderID;
+            this.elapsedTime = elapsedTime;
+        }
+
+        public int getRiderID() {
+            return riderID;
+        }
+
+        @Override
+        public int compareTo(RiderTimeEntry other) {
+            return this.elapsedTime.compareTo(other.elapsedTime);
+        }
+    }
+
 }
