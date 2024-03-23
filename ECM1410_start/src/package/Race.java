@@ -1,16 +1,34 @@
 package cycling;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Race implements java.io.Serializable{
+public class Race implements Serializable {
     private int RaceID;
     private String Name;
     private String description;
     private double totalLength;
     private int noOfStages;
     private ArrayList<Stage> Stages;
+    private HashMap<Integer, Integer> AllPoints; // riderid to points
+    private HashMap<Integer, LocalTime> TotalTimes; // riderid to times
+    private int[] finalLeaderboard;
 
+    //getters
+
+
+    public int[] getFinalLeaderboard() {
+        return finalLeaderboard;
+    }
+
+    public HashMap<Integer, Integer> getAllPoints() {
+        return AllPoints;
+    }
+
+    public HashMap<Integer, LocalTime> getTotalTimes() {return TotalTimes;}
 
     public int getRaceID(){return this.RaceID;};
     public String getName(){return this.Name;};
@@ -18,7 +36,12 @@ public class Race implements java.io.Serializable{
     public double getTotalLength(){return this.totalLength;};
     public int getNoOfStages(){return noOfStages;};
     public ArrayList<Stage> getStages(){return Stages;};
+    //setter
 
+
+    public int NoOfRiders(){
+        return Stages.getFirst().getLeaderBoard().size();
+    }
 
     public int createRace(String name, String description){
 
