@@ -1033,11 +1033,59 @@ public class CyclingPortalImpl implements CyclingPortal, Serializable {
 
     @Override
     public void saveCyclingPortal(String filename) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            // Write the number of ArrayLists to the file
+            oos.writeInt(5); // Assuming there are 5 ArrayLists
 
+            // Write each ArrayList to the file
+            oos.writeObject(Teams);
+            oos.writeObject(Races);
+            oos.writeObject(raceIDs);
+            oos.writeObject(riderIDs);
+            oos.writeObject(Riders);
+
+            System.out.println("Data saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error saving data to file: " + e.getMessage());
+        }
     }
 
     @Override
     public void loadCyclingPortal(String filename) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            // Read the number of ArrayLists from the file
+            int numberOfLists = ois.readInt();
 
+            // Read each ArrayList from the file
+            for (int i = 0; i < numberOfLists; i++) {
+                Object obj = ois.readObject();
+                if (obj instanceof ArrayList) {
+                    switch (i) {
+                        case 0:
+                            Teams = (ArrayList<Team>) obj;
+                            break;
+                        case 1:
+                            Races = (ArrayList<Race>) obj;
+                            break;
+                        case 2:
+                            raceIDs = (ArrayList<Integer>) obj;
+                            break;
+                        case 3:
+                            riderIDs = (ArrayList<Integer>) obj;
+                            break;
+                        case 4:
+                            Riders = (ArrayList<Riders>) obj;
+                            break;
+                        // Add more cases if needed for additional ArrayLists
+                    }
+                }
+            }
+
+            System.out.println("Data loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.err.println("Error loading data from file: " + e.getMessage());
+        }
     }
 }
