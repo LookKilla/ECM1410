@@ -45,7 +45,7 @@ public interface CyclingPortal extends MiniCyclingPortal {
 	int[] getRidersGeneralClassificationRank(int raceId) throws IDNotRecognisedException;
 
 	/**
-	 * Get the general classification times of riders in a race.
+	 * Get the general classification times of riders in a e.
 	 * <p>
 	 * The state of this CyclingPortal must be unchanged if any exceptions are
 	 * thrown.

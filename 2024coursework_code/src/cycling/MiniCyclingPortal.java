@@ -252,6 +252,7 @@ public interface MiniCyclingPortal extends Serializable {
 	 */
 	int createTeam(String name, String description) throws IllegalNameException, InvalidNameException;
 
+
 	/**
 	 * Removes a team from the system.
 	 * <p>
